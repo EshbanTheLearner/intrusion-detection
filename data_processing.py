@@ -37,4 +37,11 @@ numeric_columns = columns[numeric_ids].tolist()
 category = defaultdict(list)
 category["benign"].append("normal")
 
-# with open("NSL-KDD-Dataset/")
+with open("NSL-KDD-Dataset/training_attack_types.txt", "r") as f:
+    for line in f.readlines():
+        attack, cat = line.strip().split(" ")
+        category[cat].append(attack)
+
+attack_mapping = {
+    (v, k) for k in category for v in category[k]
+}
