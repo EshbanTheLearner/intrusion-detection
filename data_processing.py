@@ -45,3 +45,20 @@ with open("NSL-KDD-Dataset/training_attack_types.txt", "r") as f:
 attack_mapping = {
     (v, k) for k in category for v in category[k]
 }
+
+train_data = pd.read_csv(train_file, names=headers)
+test_data = pd.read_csv(test_file, names=headers)
+
+train_data["attack_category"] = train_data["attack_type"].map(lambda x: attack_mapping[x])
+train_data.drop(["success_pred"], axis=1, inplace=True)
+
+test_data["attack_category"] = test_data["attack_type"].map(lambda x: attack_mapping[x])
+test_data.drop(["success_pred"], axis=1, inplace=True)
+
+print(train_data.shape)
+print(test_data.shape)
+
+print("Saving...")
+
+train_data.to_csv("train-data.csv", index=False)
+test_data.to_csv("test-data.csv", index=False)
