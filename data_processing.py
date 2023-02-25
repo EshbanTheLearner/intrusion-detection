@@ -23,3 +23,18 @@ headers = [
     "dst_host_srv_serror_rate", "dst_host_rerror_rate", "dst_host_srv_rerror_rate", "attack_type",
     "success_pred"
 ]
+
+columns = np.array(headers)
+
+nominal_ids = [1, 2, 3]
+binary_ids = [6, 11, 13, 14, 20, 21]
+numeric_ids = [set(range(41)).difference(nominal_ids).difference(binary_ids)]
+
+nominal_columns = columns[nominal_ids].tolist()
+binary_columns = columns[binary_ids].tolist()
+numeric_columns = columns[numeric_ids].tolist()
+
+category = defaultdict(list)
+category["benign"].append("normal")
+
+# with open("NSL-KDD-Dataset/")
