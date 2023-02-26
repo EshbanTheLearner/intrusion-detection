@@ -28,7 +28,7 @@ columns = np.array(headers)
 
 nominal_ids = [1, 2, 3]
 binary_ids = [6, 11, 13, 14, 20, 21]
-numeric_ids = [set(range(41)).difference(nominal_ids).difference(binary_ids)]
+numeric_ids = list(set(range(41)).difference(nominal_ids).difference(binary_ids))
 
 nominal_columns = columns[nominal_ids].tolist()
 binary_columns = columns[binary_ids].tolist()
@@ -42,9 +42,7 @@ with open("NSL-KDD-Dataset/training_attack_types.txt", "r") as f:
         attack, cat = line.strip().split(" ")
         category[cat].append(attack)
 
-attack_mapping = {
-    (v, k) for k in category for v in category[k]
-}
+attack_mapping = dict((v, k) for k in category for v in category[k])
 
 train_data = pd.read_csv(train_file, names=headers)
 test_data = pd.read_csv(test_file, names=headers)
